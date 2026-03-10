@@ -1,10 +1,10 @@
 """Docker security checks."""
 
+import json
 import logging
 import os
-import json
 
-from infra_audit.utils import run_command, make_result, PASS, WARN, FAIL
+from infra_audit.utils import PASS, WARN, make_result
 
 logger = logging.getLogger(__name__)
 

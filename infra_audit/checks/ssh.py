@@ -3,7 +3,7 @@
 import logging
 import os
 
-from infra_audit.utils import make_result, PASS, WARN, FAIL
+from infra_audit.utils import FAIL, PASS, WARN, make_result
 
 logger = logging.getLogger(__name__)
 

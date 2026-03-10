@@ -3,7 +3,7 @@
 import logging
 import shutil
 
-from infra_audit.utils import run_command, make_result, PASS, WARN, FAIL
+from infra_audit.utils import FAIL, PASS, WARN, make_result, run_command
 
 logger = logging.getLogger(__name__)
 
@@ -64,12 +64,12 @@ def _parse_free_output(stdout):
 
 def _parse_vm_stat(stdout):
     """Parse macOS 'vm_stat' output to estimate memory usage."""
-    page_size = 16384  # default on Apple Silicon; 4096 on Intel
+    # page_size = 16384  # default on Apple Silicon; 4096 on Intel
     stats = {}
     for line in stdout.splitlines():
         if "page size of" in line:
             try:
-                page_size = int(line.split()[-2])
+                int(line.split()[-2])
             except (ValueError, IndexError):
                 pass
         elif ":" in line:

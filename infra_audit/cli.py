@@ -8,7 +8,7 @@ import sys
 import click
 
 from infra_audit.checks import ALL_CHECKS
-from infra_audit.utils import PASS, WARN, FAIL
+from infra_audit.utils import FAIL, PASS, WARN
 
 LOG_LEVEL = os.environ.get("INFRA_AUDIT_LOG_LEVEL", "WARNING").upper()
 logging.basicConfig(

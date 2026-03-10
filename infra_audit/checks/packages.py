@@ -5,7 +5,7 @@ import os
 import platform
 import shutil
 
-from infra_audit.utils import run_command, make_result, PASS, WARN
+from infra_audit.utils import PASS, WARN, make_result, run_command
 
 logger = logging.getLogger(__name__)
 
