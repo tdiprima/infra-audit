@@ -1,6 +1,7 @@
 """Firewall status checks."""
 
 import logging
+import os
 import platform
 import shutil
 
@@ -25,8 +26,8 @@ def check_firewall_status():
 def _find_command(name, sbin_paths=("/usr/sbin", "/sbin")):
     """Locate a command by name, checking sbin directories and PATH."""
     for sbin in sbin_paths:
-        candidate = f"{sbin}/{name}"
-        if shutil.which(candidate):
+        candidate = os.path.join(sbin, name)
+        if os.path.isfile(candidate):
             return candidate
     return shutil.which(name)
 
@@ -35,15 +36,19 @@ def _check_linux_firewall():
     """Check Linux firewall via ufw or iptables."""
     ufw = _find_command("ufw")
     if ufw:
-        stdout, _, rc = run_command([ufw, "status"])
+        stdout, stderr, rc = run_command([ufw, "status"])
         if rc == 0:
             if "active" in stdout.lower():
                 return make_result("firewall", PASS, "Firewall active (ufw)")
             return make_result("firewall", FAIL, "Firewall inactive (ufw)")
+        return make_result(
+            "firewall", WARN,
+            "ufw found but could not query status (try running as root)"
+        )
 
     iptables = _find_command("iptables")
     if iptables:
-        stdout, _, rc = run_command([iptables, "-L", "-n"])
+        stdout, stderr, rc = run_command([iptables, "-L", "-n"])
         if rc == 0:
             rule_lines = [
                 line for line in stdout.splitlines()
@@ -52,6 +57,10 @@ def _check_linux_firewall():
             if rule_lines:
                 return make_result("firewall", PASS, "Firewall rules found (iptables)")
             return make_result("firewall", WARN, "iptables present but no rules configured")
+        return make_result(
+            "firewall", WARN,
+            "iptables found but could not query rules (try running as root)"
+        )
 
     return make_result("firewall", WARN, "No firewall tool found (ufw/iptables)")
 

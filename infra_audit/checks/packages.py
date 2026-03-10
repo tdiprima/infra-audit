@@ -29,9 +29,12 @@ def _check_linux_packages():
     if rc == 0:
         upgradable = [
             line for line in stdout.splitlines()
-            if "/" in line and "Listing" not in line
+            if line.strip() and "[upgradable" in line.lower()
         ]
         count = len(upgradable)
+        if count > 0:
+            names = [line.split("/")[0] for line in upgradable]
+            logger.info("Outdated packages: %s", ", ".join(names))
         if count == 0:
             return make_result(
                 "outdated_packages", PASS, "All packages up to date (apt)"
