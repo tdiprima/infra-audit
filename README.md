@@ -1,3 +1,5 @@
+# 🛡️ Infrastructure Audit CLI ⚙️
+
 ## Problem
 
 Linux and macOS servers often drift from security best practices over time. Misconfigurations go unnoticed, packages fall behind, and small issues compound into real vulnerabilities.
@@ -27,7 +29,7 @@ $ infra-audit scan
 ## Installation
 
 ```bash
-git clone https://github.com/youruser/infra-audit.git
+git clone https://github.com/tdiprima/infra-audit.git
 cd infra-audit
 pip install -e .
 ```
