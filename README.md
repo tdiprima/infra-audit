@@ -31,6 +31,8 @@ $ infra-audit scan
 ```bash
 git clone https://github.com/tdiprima/infra-audit.git
 cd infra-audit
+uv sync
+source .venv/bin/activate
 pip install -e .
 ```
 
