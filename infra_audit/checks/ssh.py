@@ -1,7 +1,7 @@
 """SSH security checks."""
 
 import logging
-import os
+from pathlib import Path
 
 from infra_audit.utils import FAIL, PASS, WARN, make_result
 
@@ -12,7 +12,7 @@ SSHD_CONFIG = "/etc/ssh/sshd_config"
 
 def _read_sshd_config():
     """Read sshd_config and return its contents, or None if unreadable."""
-    if not os.path.isfile(SSHD_CONFIG):
+    if not Path(SSHD_CONFIG).is_file():
         return None
     try:
         with open(SSHD_CONFIG, "r") as fh:
@@ -67,7 +67,7 @@ def check_ssh_password_auth():
             "ssh_password_auth", PASS, "SSH password authentication disabled"
         )
     status = FAIL if value == "yes" else WARN
-    display = value if value else "not set (defaults vary)"
+    display = value or "not set (defaults vary)"
     return make_result(
         "ssh_password_auth", status,
         f"SSH password authentication: {display}"

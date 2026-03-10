@@ -1,9 +1,9 @@
 """Package freshness checks."""
 
 import logging
-import os
 import platform
 import shutil
+from pathlib import Path
 
 from infra_audit.utils import PASS, WARN, make_result, run_command
 
@@ -117,10 +117,10 @@ def _detect_linux_package_manager():
     os_ids = _read_os_release_ids()
 
     # Strong distro markers first.
-    if os.path.exists("/etc/debian_version"):
+    if Path("/etc/debian_version").exists():
         if has_apt:
             return "apt"
-    if os.path.exists("/etc/redhat-release"):
+    if Path("/etc/redhat-release").exists():
         if has_dnf:
             return "dnf"
         if has_yum:

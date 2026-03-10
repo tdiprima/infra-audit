@@ -2,7 +2,7 @@
 
 import json
 import logging
-import os
+from pathlib import Path
 
 from infra_audit.utils import PASS, WARN, make_result
 
@@ -13,11 +13,11 @@ DOCKER_SOCKET = "/var/run/docker.sock"
 
 def check_docker_socket():
     """Check if the Docker socket is world-readable/writable."""
-    if not os.path.exists(DOCKER_SOCKET):
+    if not Path(DOCKER_SOCKET).exists():
         return make_result("docker_socket", PASS, "Docker socket not present")
 
     try:
-        stat = os.stat(DOCKER_SOCKET)
+        stat = Path(DOCKER_SOCKET).stat()
         mode = stat.st_mode
         # Check if 'other' has read or write permissions
         other_rw = mode & 0o006
@@ -37,7 +37,7 @@ def check_docker_socket():
 def check_docker_configs():
     """Check for insecure Docker daemon configuration."""
     daemon_json = "/etc/docker/daemon.json"
-    if not os.path.isfile(daemon_json):
+    if not Path(daemon_json).is_file():
         return make_result(
             "docker_config", PASS, "No Docker daemon.json found"
         )

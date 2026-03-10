@@ -2,6 +2,7 @@
 
 import logging
 import shutil
+from contextlib import suppress
 
 from infra_audit.utils import FAIL, PASS, WARN, make_result, run_command
 
@@ -68,10 +69,8 @@ def _parse_vm_stat(stdout):
     stats = {}
     for line in stdout.splitlines():
         if "page size of" in line:
-            try:
+            with suppress(ValueError, IndexError):
                 int(line.split()[-2])
-            except (ValueError, IndexError):
-                pass
         elif ":" in line:
             key, _, val = line.partition(":")
             try:
