@@ -16,12 +16,17 @@ logging.basicConfig(
     format="%(asctime)s %(name)s %(levelname)s %(message)s",
 )
 
-STATUS_ICONS = {
-    PASS: "\u2714",  # check mark
-    WARN: "\u26a0",  # warning sign
-    FAIL: "\u2718",  # cross mark
-}
+# STATUS_ICONS = {
+#     PASS: "\u2714",  # check mark
+#     WARN: "\u26a0",  # warning sign
+#     FAIL: "\u2718",  # cross mark
+# }
 
+STATUS_ICONS = {
+    PASS: "✔️",  # check mark
+    WARN: "⚠️",  # warning sign
+    FAIL: "❌",  # cross mark
+}
 
 @click.group()
 @click.version_option(version="0.1.0", prog_name="infra-audit")
