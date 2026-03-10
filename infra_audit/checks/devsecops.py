@@ -44,6 +44,7 @@ def check_open_ports():
     if system == "Linux":
         stdout, _, rc = run_command(["ss", "-tlnp"])
     elif system == "Darwin":
+        # lsof -iTCP -sTCP:LISTEN -nP
         stdout, _, rc = run_command(["lsof", "-iTCP", "-sTCP:LISTEN", "-nP"])
     else:
         return make_result(

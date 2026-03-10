@@ -132,6 +132,7 @@ def check_zombie_processes():
 
 def check_service_failures():
     """Check for failed systemd services."""
+    # sudo systemctl --failed --no-pager --no-legend
     stdout, _, rc = run_command(["systemctl", "--failed", "--no-pager", "--no-legend"])
     if rc != 0:
         return make_result(
