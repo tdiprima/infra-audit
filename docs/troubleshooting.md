@@ -1,3 +1,9 @@
+### ⚠️ SSH password authentication: not set
+
+```sh
+sudo vim /etc/ssh/sshd_config
+```
+
 ### ⚠️ ufw found but could not query status (try running as root)
 
 ```sh
@@ -28,3 +34,4 @@ sudo apt upgrade
 sudo apt autoremove
 ```
 
+<br>
