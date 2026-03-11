@@ -1,4 +1,4 @@
-# 🛡️ Infrastructure Audit CLI ⚙️
+<!-- # Infrastructure Audit CLI -->
 
 ![](infra-audit.png)
 
