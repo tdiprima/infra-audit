@@ -1,5 +1,7 @@
 # 🛡️ Infrastructure Audit CLI ⚙️
 
+![](infra-audit.png)
+
 ## Problem
 
 Linux and macOS servers often drift from security best practices over time. Misconfigurations go unnoticed, packages fall behind, and small issues compound into real vulnerabilities.
