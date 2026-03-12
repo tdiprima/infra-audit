@@ -13,7 +13,7 @@ Linux and macOS servers often drift from security best practices over time. Misc
 ## Example Output
 
 ```
-$ infra-audit scan
+$ infra_audit scan
 ✔ SSH root login disabled
 ✔ SSH password authentication disabled
 ✔ Firewall active (ufw)
@@ -43,19 +43,29 @@ pip install -e .
 Run all checks:
 
 ```bash
-infra-audit scan
+sudo infra_audit scan
 ```
 
 Output as JSON for CI/CD pipelines:
 
 ```bash
-infra-audit scan --json
+sudo infra_audit scan --json
 ```
 
 Pipe into `jq` for filtering:
 
 ```bash
-infra-audit scan --json | jq '.[] | select(.status != "pass")'
+sudo infra_audit scan --json | jq '.[] | select(.status != "pass")'
+```
+
+## Troubles?
+
+```sh
+deactivate
+rm -rf .venv
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -e .
 ```
 
 <br>
