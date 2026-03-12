@@ -3,11 +3,13 @@
 import json
 import logging
 import os
+import socket
 import sys
 
 import click
 
 from infra_audit.checks import ALL_CHECKS
+from infra_audit.notifier import send_report
 from infra_audit.utils import FAIL, PASS, WARN
 
 LOG_LEVEL = os.environ.get("INFRA_AUDIT_LOG_LEVEL", "WARNING").upper()
@@ -58,6 +60,12 @@ def scan(output_json):
         _print_json(results)
     else:
         _print_human(results)
+
+    hostname = socket.gethostname()
+    try:
+        send_report(results, hostname)
+    except Exception as exc:
+        logging.getLogger(__name__).error("Email notification failed: %s", exc)
 
     has_fail = any(r["status"] == FAIL for r in results)
     sys.exit(1 if has_fail else 0)
