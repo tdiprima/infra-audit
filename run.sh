@@ -30,10 +30,10 @@ log "Starting infra-audit scan on $(hostname)"
 
 # Capture output so we can log it and still let it flow to stdout/cron's mailer.
 if [[ -n "${INFRA_AUDIT_LOG_FILE:-}" ]]; then
-    sudo "$PYTHON" -m infra_audit.cli scan 2>&1 | tee -a "$INFRA_AUDIT_LOG_FILE"
+    sudo -E "$PYTHON" -m infra_audit.cli scan 2>&1 | tee -a "$INFRA_AUDIT_LOG_FILE"
     EXIT_CODE="${PIPESTATUS[0]}"
 else
-    sudo "$PYTHON" -m infra_audit.cli scan
+    sudo -E "$PYTHON" -m infra_audit.cli scan
     EXIT_CODE=$?
 fi
 

@@ -2,11 +2,7 @@
 
 ![](infra-audit.png)
 
-## Problem
-
 Linux and macOS servers often drift from security best practices over time. Misconfigurations go unnoticed, packages fall behind, and small issues compound into real vulnerabilities.
-
-## Solution
 
 `infra-audit` scans a host and reports security and reliability issues in seconds. It checks SSH configuration, firewall status, Docker security, disk and memory health, zombie processes, exposed secrets, and outdated packages.
 
@@ -31,7 +27,7 @@ $ infra_audit scan
 ## Installation
 
 ```bash
-git clone https://github.com/your-username/infra-audit.git
+git clone https://github.com/tdiprima/infra-audit.git
 cd infra-audit
 python3 -m venv .venv
 source .venv/bin/activate
