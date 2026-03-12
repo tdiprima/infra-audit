@@ -33,7 +33,8 @@ $ infra_audit scan
 ```bash
 git clone https://github.com/tdiprima/infra-audit.git
 cd infra-audit
-uv sync
+rm -rf .venv
+python3 -m venv .venv
 source .venv/bin/activate
 pip install -e .
 ```
@@ -56,16 +57,6 @@ Pipe into `jq` for filtering:
 
 ```bash
 sudo infra_audit scan --json | jq '.[] | select(.status != "pass")'
-```
-
-## Troubles?
-
-```sh
-deactivate
-rm -rf .venv
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -e .
 ```
 
 <br>
